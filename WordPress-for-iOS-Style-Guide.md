@@ -143,6 +143,20 @@ if (someValue != nil)
   return;
 ```
 
+### Ternary Operators
+
+Be cautious about using the ternary operator as it can make code very difficult to read. Only use a ternary operator if using it makes the code easier to read.
+
+```objective-c
+
+// Good
+  int minVal = a < b ? a : b
+
+// Bad
+  [self.view addSubview(currentlyVisibleView == self.photoSelectorView ? self.textEditorView : self.photoSelectorView];
+
+```
+
 ### Multi Line Declarations
 
 Don't declare a series of variables on one line but rather split them up into individual lines. The reason for this is that splitting them into multiple lines makes the code easier to read and it makes diffs easier to analyze.
