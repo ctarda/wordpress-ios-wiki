@@ -1,23 +1,24 @@
 So you want to write some code for WordPress for iOS. That’s nice, thanks a lot. But before that take some minutes to read some tips that will probably make everyone’s life easier. Much of this guide is adapted from [Google's Objective-C Style Guide](http://google-styleguide.googlecode.com/svn/trunk/objcguide.xml). You should read that as well as [Apple's Coding Guidelines for Cocoa](https://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/CodingGuidelines/CodingGuidelines.html).
 
 ## Before You Commit
-* Review what you commit: make sure you’re not leaving out anything, and that everything that you commit is meant to be there.
+* Review what you commit: make sure you’re not leaving out anything, and that everything that you commit is meant to be there. `git add -p` is your friend here.
 * Check for whitespace. Not the most critical thing, but if you follow the previous step, you might see unnecessary white space added at the end of a line. Get rid of it
 * No NSLog in commits. We all use NSLog (or our WP* FileLogger variants) to debug. Unless you really want that to be on production, and logged into the wordpress.log file, remove it before commit. Our app is verbose enough already.
 * No commented out code. If the code was already there and you’re removing it to test something, don’t comment it, just remove it. You can always go back by checking out a previous version from source control.
-* Avoid new compiler warnings. A compiler warning might seem harmless, but when we compile for the app store, we use -Werror, so those insignificant warnings turn into real errors and force us to investigate what’s wrong at the last minute. You really don’t want to be messing with the code at that point.
+* Avoid new compiler warnings. A compiler warning might seem harmless, but when we compile for the app store, we use `-Werror`, so those insignificant warnings turn into real errors and force us to investigate what’s wrong at the last minute. You really don’t want to be messing with the code at that point.
 
 If there’s a ticket associated, make sure to use “refs #123″ or “fixes #123″ in the commit message. It makes easier to track why things changed
 
 ## Spacing and Formatting
 ### Spaces vs Tabs
-Use only spaces, and indent 2 spaces at a time.
+Use only spaces, and indent 4 spaces at a time.
 ### Method Declarations and Definitions
 One space should be used between the - or + and the return type, and no spacing in the parameter list except between parameters.
 Methods should look like this:
 
 ```objective-c
-- (void)doSomethingWithString:(NSString *)theString {
+- (void)doSomethingWithString:(NSString *)theString
+{
   ...
 }
 ```
@@ -27,7 +28,8 @@ If you have too many parameters to fit on one line, giving each its own line is 
 ```objective-c
 - (void)doSomethingWith:(GTMFoo *)theFoo
                    rect:(NSRect)theRect
-               interval:(float)theInterval {
+               interval:(float)theInterval
+{
   ...
 }
 ```
@@ -265,6 +267,10 @@ Additionally, each method in the public interface should have a comment explaini
 Document the synchronization assumptions the class makes, if any. If an instance of the class can be accessed by multiple threads, take extra care to document the rules and invariants surrounding multithreaded use.
 
 ##Cocoa and Objective-C Features
+###Interface files
+
+Interface files should be as short as possible: don't declare instance variables, and declare only properties and methods that need to be exposed to other classes. Everything else should go into an interface extension inside the implementation file. Remember that you don't need to declare private methods anymore with a modern Xcode version.
+
 ###Overridden NSObject Method Placement
 It is strongly recommended and typical practice to place overridden methods of _NSObject_ at the top of an _@implementation_. This commonly applies (but is not limited) to the _init..._, _copyWithZone:_, and _dealloc_ methods. _init_... methods should be grouped together, followed by the _copyWithZone:_ method, and finally the _dealloc_ method.
 
@@ -385,33 +391,19 @@ if (great)
   // ...be great!
 ```
 ### Properties
-Use of the _@property_ directive is preferred. Dot notation is allowed only for access to a declared @property.  
+Use of the _@property_ directive is preferred. Dot notation is allowed only for access to a declared @property.
 
-**Naming**  
-A property's associated instance variable's name must conform to the leading _ requirement. The property's name should be the same as its associated instance variable without the leading _. The optional space between the *@property* and the opening parenthesis should be omitted, as seen in the examples.
+Use of automatically synthesized instance variables is preferred.
+
+**Location**  
+
+A property's declaration must come immediately after the instance variable block of a class interface. A property's definition (if not using automatic synthesis) must come immediately after the _@implementation_ block in a class definition. They are indented at the same level as the _@interface_ or _@implementation_ statements that they are enclosed in.
 ```objective-c
 @interface MyClass : NSObject
 @property(copy, nonatomic) NSString *name;
 @end
 
 @implementation MyClass
-// No code required for auto-synthesis, else use:
-//   @synthesize name = _name;
-@end
-```
-**Location**  
-
-A property's declaration must come immediately after the instance variable block of a class interface. A property's definition (if not using automatic synthesis) must come immediately after the _@implementation_ block in a class definition. They are indented at the same level as the _@interface_ or _@implementation_ statements that they are enclosed in.
-```objective-c
-@interface MyClass : NSObject {
- @private
-  NSString *_name;
-}
-@property(copy, nonatomic) NSString *name;
-@end
-
-@implementation MyClass
-@synthesize name = _name;
 
 - (id)init {
   ...
@@ -452,9 +444,6 @@ Omit the empty set of braces on interfaces that do not declare any instance vari
 @end
 ```
 
-###Automatically Synthesized Instance Variables
-Use of automatically synthesized instance variables is preferred. Code that must support earlier versions of the compiler toolchain (Xcode 4.3 or earlier or when compiling with GCC) or is using properties inherited from a protocol should prefer the @synthesize directive.
-
 ###NSNumber Literals
 For projects that use Xcode 4.4 or later with clang, the use of [NSNumber literals](http://clang.llvm.org/docs/ObjectiveCLiterals.html) is allowed.
 
@@ -467,4 +456,28 @@ typedef NS_ENUM(NSUInteger, MyEnum) {
   MyEnumTwo = 2,
 };
 NSNumber *myEnum = @(MyEnumTwo);
+```
+
+###Constant definitions
+
+Avoid using `#define` for constants, they should be defined using `const`. Constant names should start with an uppercase letter and use mixed case.
+
+```objective-c
+// Good
+NSInteger const ReaderPostsToSync = 20;
+NSString *const ReaderLastSyncDateKey = @"ReaderLastSyncDate";
+
+// Bad
+#define READER_POSTS_TO_SYNC 20;
+#define READER_SYNC_DATE_KEY @"ReaderLastSyncDate";
+```
+
+Constants should be defined in the implementation file. If a class needs to expose a constant, it should be defined as `extern` on the interface file, then initialised in the implementation file:
+
+```objective-c
+//  Blog+Jetpack.h
+extern NSString * const BlogJetpackErrorDomain;
+
+//  Blog+Jetpack.m
+NSString * const BlogJetpackErrorDomain = @"BlogJetpackError";
 ```
