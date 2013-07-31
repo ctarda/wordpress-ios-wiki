@@ -154,10 +154,10 @@ Be cautious about using the ternary operator as it can make code very difficult 
 ```objective-c
 
 // Good
-  int minVal = a < b ? a : b
+  int minVal = (a < b) ? a : b
 
 // Bad
-  [self.view addSubview(currentlyVisibleView == self.photoSelectorView ? self.textEditorView : self.photoSelectorView];
+  [self.view addSubview:((currentlyVisibleView == self.photoSelectorView) ? self.textEditorView : self.photoSelectorView)];
 
 ```
 
