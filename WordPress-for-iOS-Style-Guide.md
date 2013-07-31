@@ -13,7 +13,7 @@ If there’s a ticket associated, make sure to use “refs #123″ or “fixes #
 ### Spaces vs Tabs
 Use only spaces, and indent 4 spaces at a time.
 ### Line Length
-Each line of text in your code should try to be at most 80 characters long. Objective C is a fairly verbose language and occasionally it makes sense to extend past the 80 character limit. However, this should be a rare occurrence and not commonplace.
+Each line of text in your code should try to be at most 100 characters long. Objective C is a fairly verbose language and occasionally it makes sense to extend past the 100 character limit. However, this should be a rare occurrence and not commonplace.
 ### Method Declarations and Definitions
 One space should be used between the - or + and the return type, and no spacing in the parameter list except between parameters.
 Methods should look like this:
