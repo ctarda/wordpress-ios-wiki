@@ -446,11 +446,12 @@ Omit the empty set of braces on interfaces that do not declare any instance vari
 @end
 ```
 
-###NSNumber Literals
-For projects that use Xcode 4.4 or later with clang, the use of [NSNumber literals](http://clang.llvm.org/docs/ObjectiveCLiterals.html) is allowed.
+###NSNumber, NSArray and NSDictionary  Literals
+For projects that use Xcode 4.4 or later with clang, the use of NSNumber, NSArray and NSDictionary [literals](http://clang.llvm.org/docs/ObjectiveCLiterals.html) is allowed and preferred.
 
 NSNumber literals are used just like Objective C string literals. Boxing is used when necessary.
 ```objective-c
+// NSNumber
 NSNumber *fortyTwo = @42;
 NSNumber *piOverTwo = @(M_PI / 2);
 typedef NS_ENUM(NSUInteger, MyEnum) {
@@ -458,6 +459,12 @@ typedef NS_ENUM(NSUInteger, MyEnum) {
   MyEnumTwo = 2,
 };
 NSNumber *myEnum = @(MyEnumTwo);
+
+// NSArray
+NSArray *continents = @[@"North America", @"South America", @"Europe", @"Asia", @"Africa", @"Antarctica", @"Australia"];
+
+// NSDictionary
+NSDictionary *personInfo = @{ @"name" : @"John Doe", @"age" : @(25) };
 ```
 
 ###Constant definitions
