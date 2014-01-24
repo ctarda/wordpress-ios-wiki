@@ -19,8 +19,7 @@ One space should be used between the - or + and the return type, and no spacing 
 Methods should look like this:
 
 ```objective-c
-- (void)doSomethingWithString:(NSString *)theString
-{
+- (void)doSomethingWithString:(NSString *)theString {
   ...
 }
 ```
@@ -30,8 +29,7 @@ If you have too many parameters to fit on one line, giving each its own line is 
 ```objective-c
 - (void)doSomethingWith:(GTMFoo *)theFoo
                    rect:(NSRect)theRect
-               interval:(float)theInterval
-{
+               interval:(float)theInterval {
   ...
 }
 ```
@@ -134,10 +132,8 @@ if (someValue != nil) {
 }
 
 // Bad
-
 if (someValue != nil)
   [self doSomething];
-
 ```
 
 The exception to this rule is if the statement being executed is a return statement.
