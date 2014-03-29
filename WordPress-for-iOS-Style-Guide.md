@@ -122,6 +122,32 @@ void (^largeBlock)(void) = ^{
 [_operationQueue addOperationWithBlock:largeBlock];
 ```
 
+### Braces
+
+When writing code that needs braces we generally want the brace on a new line rather than on the same line. The exception to this rule would be for if statements or for statements. 
+```objective-c
+// Bad
+- (void)someMethod {
+  // Do something
+}
+
+// Good
+- (void)someMethod
+{
+ // Do something
+}
+
+// Good
+if (condition) {
+  // Do something
+}
+
+// Good
+for (int i=0; i < len; i++) {
+  // Do something
+}
+```
+
 ### If Statements
 
 When writing if statements, make sure to use a curly brace even if it's a one line statement.
