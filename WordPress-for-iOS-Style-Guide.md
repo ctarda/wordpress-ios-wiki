@@ -150,7 +150,7 @@ for (int i=0; i < len; i++) {
 
 ### If Statements
 
-When writing if statements, make sure to use a curly brace even if it's a one line statement.
+When writing if statements, make sure to use a curly brace even if it's a one line statement. Also make sure there is a space between the `if` and the opening parenthesis.
 ```objective-c
 // Good
 if (someValue != nil) {
