@@ -19,17 +19,19 @@ One space should be used between the - or + and the return type, and no spacing 
 Methods should look like this:
 
 ```objective-c
-- (void)doSomethingWithString:(NSString *)theString {
+- (void)doSomethingWithString:(NSString *)theString
+{
   ...
 }
 ```
 
-If you have too many parameters to fit on one line, giving each its own line is preferred. If multiple lines are used, align each using the colon before the parameter.
+If you have more than one parameter, giving each its own line is preferred. If multiple lines are used, align each using the colon before the parameter.
 
 ```objective-c
 - (void)doSomethingWith:(GTMFoo *)theFoo
                    rect:(NSRect)theRect
-               interval:(float)theInterval {
+               interval:(float)theInterval
+{
   ...
 }
 ```
@@ -207,11 +209,13 @@ When writing pure Objective-C code, we mostly follow standard [Objective-C namin
 Any class, category, method, or variable name may use all capitals for initialisms within the name. This follows Apple's standard of using all capitals within a name for initialisms such as URL, TIFF, and EXIF. An exception to this is when passing a URL as a _NSString_ we prefer to not to use all capitals. The reason for this is that a non all capitalized URL stands out as more obvious that the variable in question is a _NSString_ instead of a _NSURL_.
 
 ```objective-c
-- (void)displayWebsite:(NSURL *)websiteURL {
+- (void)displayWebsite:(NSURL *)websiteURL
+{
   ...
 }
 
-- (void)displayWebsite:(NSString *)websiteUrl {
+- (void)displayWebsite:(NSString *)websiteUrl
+{
   ...
 }
 ```
@@ -327,7 +331,8 @@ Subclasses have not yet been initialized or have already deallocated when _init_
 ```objective-c
 // Good
 
-- (id)init {
+- (id)init
+{
   self = [super init];
   if (self) {
     _bar = [[NSMutableString alloc] init];
@@ -335,14 +340,16 @@ Subclasses have not yet been initialized or have already deallocated when _init_
   return self;
 }
 
-- (void)dealloc {
+- (void)dealloc
+{
   [_bar release];
   [super dealloc];
 }
 
 // Avoid
 
-- (id)init {
+- (id)init
+{
   self = [super init];
   if (self) {
     self.bar = [NSMutableString string];
@@ -350,7 +357,8 @@ Subclasses have not yet been initialized or have already deallocated when _init_
   return self;
 }
 
-- (void)dealloc {
+- (void)dealloc
+{
   self.bar = nil;
   [super dealloc];
 }
@@ -361,7 +369,8 @@ Setters taking an _NSString_, should always copy the string it accepts.
 Never just retain the string. This avoids the caller changing it under you without your knowledge. Don't assume that because you're accepting an _NSString_ that it's not actually an _NSMutableString_.  
 
 ```objective-c
-- (void)setFoo:(NSString *)aFoo {
+- (void)setFoo:(NSString *)aFoo
+{
   [_foo autorelease];
   _foo = [aFoo copy];
 }
@@ -384,21 +393,26 @@ Using logical operators (_&&_, _||_ and _!_) with _BOOL_ is also valid and will 
 ```objective-c
 // Bad
 
-- (BOOL)isBold {
+- (BOOL)isBold
+{
   return [self fontTraits] & NSFontBoldTrait;
 }
-- (BOOL)isValid {
+- (BOOL)isValid
+{
   return [self stringValue];
 }
 
 // Good
-- (BOOL)isBold {
+- (BOOL)isBold
+{
   return ([self fontTraits] & NSFontBoldTrait) ? YES : NO;
 }
-- (BOOL)isValid {
+- (BOOL)isValid
+{
   return [self stringValue] != nil;
 }
-- (BOOL)isEnabled {
+- (BOOL)isEnabled
+{
   return [self isValid] && [self isBold];
 }
 ```
@@ -429,7 +443,8 @@ A property's declaration must come immediately after the instance variable block
 
 @implementation MyClass
 
-- (id)init {
+- (id)init
+{
   ...
 }
 @end
