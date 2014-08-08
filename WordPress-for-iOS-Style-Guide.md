@@ -164,13 +164,6 @@ if (someValue != nil)
   [self doSomething];
 ```
 
-The exception to this rule is if the statement being executed is a return statement.
-
-```objective-c
-if (someValue != nil)
-  return;
-```
-
 ### Ternary Operators
 
 Be cautious about using the ternary operator as it can make code very difficult to read. Only use a ternary operator if using it makes the code easier to read.
