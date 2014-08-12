@@ -160,8 +160,8 @@ if (someValue != nil) {
 }
 
 // Good
-if (UIInterfaceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)
-    && !IS_IPAD) 
+if (someReallyLongVariableName != nil
+    && someOtherLongVariableName != nil) 
 {
   [self doSomething];
 }
