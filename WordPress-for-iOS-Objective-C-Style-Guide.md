@@ -384,11 +384,11 @@ Use _nil_ checks for logic flow of the application, not for crash prevention. Se
 ###BOOL Pitfalls
 Be careful when converting general integral values to _BOOL_. Avoid comparing directly with _YES_.  
 
-_BOOL_ is defined as a signed char in Objective-C which means that it can have values other than _YES_ (1) and _NO_ (0). Do not cast or convert general integral values directly to _BOOL_. Common mistakes include casting or converting an array's size, a pointer value, or the result of a bitwise logic operation to a _BOOL_ which, depending on the value of the last byte of the integral result, could still result in a _NO_ value. When converting a general integral value to a _BOOL_ use ternery operators to return a _YES_ or _NO_ value.  
+_BOOL_ is defined as a signed char in Objective-C which means that it can have values other than _YES_ (1) and _NO_ (0). Do not cast or convert general integral values directly to _BOOL_. Common mistakes include casting or converting an array's size, a pointer value, or the result of a bitwise logic operation to a _BOOL_ which, depending on the value of the last byte of the integral result, could still result in a _NO_ value. When converting a general integral value to a _BOOL_ use ternary operators to return a _YES_ or _NO_ value.  
 
 You can safely interchange and convert _BOOL_, *_Bool* and _bool_ (see C++ Std 4.7.4, 4.12 and C99 Std 6.3.1.2). You cannot safely interchange _BOOL_ and _Boolean_ so treat _Booleans_ as a general integral value as discussed above. Only use _BOOL_ in Objective C method signatures.  
 
-Using logical operators (_&&_, _||_ and _!_) with _BOOL_ is also valid and will return values that can be safely converted to _BOOL_ without the need for a ternery operator.
+Using logical operators (_&&_, _||_ and _!_) with _BOOL_ is also valid and will return values that can be safely converted to _BOOL_ without the need for a ternary operator.
 
 ```objective-c
 // Bad
