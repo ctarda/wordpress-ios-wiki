@@ -192,12 +192,12 @@ Don't declare a series of variables on one line but rather split them up into in
 ```objective-c
 
 // Bad
-@property (nonatomic, strong) NSString *username, *url, *password;
+@property (nonatomic, copy) NSString *username, *url, *password;
 
 // Good
-@property (nonatomic, strong) NSString *username;
-@property (nonatomic, strong) NSString *url;
-@property (nonatomic, strong) NSString *password;
+@property (nonatomic, copy) NSString *username;
+@property (nonatomic, copy) NSString *url;
+@property (nonatomic, copy) NSString *password;
 
 ```
 
