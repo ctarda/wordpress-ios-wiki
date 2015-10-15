@@ -1,4 +1,3 @@
-This is the wrong page.
-here's the right link:
+[Swift Style Guide](https://github.com/wordpress-mobile/swift-style-guide)
 
-https://github.com/wordpress-mobile/WordPress-iOS/wiki/WordPress-for-iOS-Objective-C-Style-Guide
+[Objective-C Style Guide](https://github.com/wordpress-mobile/objective-c-style-guide)
